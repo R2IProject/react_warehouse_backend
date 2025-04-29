@@ -5,6 +5,7 @@ const express = require("express");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const authRoutes = require("./routes/auth");
+const usersRoutes = require("./routes/users");
 
 dotenv.config();
 
@@ -12,7 +13,7 @@ const app = express();
 app.use(cookieParser());
 app.use(
   cors({
-    origin: process.env.FRONT_APP_URL, // Frontend URL
+    origin: process.env.FRONT_APP_URL,
     methods: ["GET", "POST", "PATCH", "DELETE"],
     credentials: true,
   })
@@ -22,15 +23,13 @@ const PORT = process.env.PORT || 5000;
 
 // Connect to MongoDB
 mongoose
-  .connect(process.env.DATABASE_URL, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
+  .connect(process.env.DATABASE_URL)
   .then(() => console.log("MongoDB connected"))
   .catch((err) => console.log(err));
 
 // Routes
 app.use("/api-warehouse", authRoutes);
+app.use("/api-warehouse", usersRoutes);
 
 // Start the server
 app.listen(PORT, () => {
