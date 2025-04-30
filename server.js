@@ -6,6 +6,7 @@ const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const authRoutes = require("./routes/auth");
 const usersRoutes = require("./routes/users");
+const locationsRoutes = require("./routes/locations");
 
 dotenv.config();
 
@@ -30,6 +31,7 @@ mongoose
 // Routes
 app.use("/api-warehouse", authRoutes);
 app.use("/api-warehouse", usersRoutes);
+app.use("/api-warehouse", locationsRoutes);
 
 // Start the server
 app.listen(PORT, () => {
