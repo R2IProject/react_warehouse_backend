@@ -7,6 +7,7 @@ const cookieParser = require("cookie-parser");
 const authRoutes = require("./routes/auth");
 const usersRoutes = require("./routes/users");
 const locationsRoutes = require("./routes/locations");
+const inventoryRoutes = require("./routes/inventory");
 
 dotenv.config();
 
@@ -32,6 +33,7 @@ mongoose
 app.use("/api-warehouse", authRoutes);
 app.use("/api-warehouse", usersRoutes);
 app.use("/api-warehouse", locationsRoutes);
+app.use("/api-warehouse", inventoryRoutes);
 
 // Start the server
 app.listen(PORT, () => {
