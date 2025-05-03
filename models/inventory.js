@@ -10,7 +10,7 @@ const inventorySchema = new mongoose.Schema({
     required: true,
   },
   quantity_good: {
-    type: String,
+    type: Number,
     required: true,
   },
   description: {
@@ -26,7 +26,7 @@ const inventorySchema = new mongoose.Schema({
     required: true,
   },
   unit: {
-    type: String,
+    type: Number,
     required: true,
   },
   createdAt: {
