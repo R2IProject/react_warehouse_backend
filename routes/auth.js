@@ -7,7 +7,6 @@ const authMiddleware = require("../middleware/auth");
 
 router.post("/register", async (req, res) => {
   const { username, email, role, password } = req.body;
-  console.log("🚀 ~ router.post ~ req.body:", req.body)
   try {
     const existingUser = await User.findOne({ email });
     if (existingUser) {
@@ -44,7 +43,7 @@ router.post("/login", async (req, res) => {
     const token = jwt.sign(
       {
         userId: user._id,
-        username: user.name,
+        username: user.username,
         email: user.email,
         role: user.role,
         createdAt: user.createdAt,

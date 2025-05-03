@@ -40,7 +40,6 @@ router.patch("/users/:id", authMiddleware, async (req, res) => {
 
     res.status(200).json({ message: "User updated" });
   } catch (error) {
-    console.log("🚀 ~ router.patch ~ error:", error);
     res.status(500).json({ message: "Server error" });
   }
 });
@@ -52,7 +51,6 @@ router.delete("/users/:id", authMiddleware, async (req, res) => {
     if (!userData) return res.status(404).json({ message: "User not found" });
     res.status(200).json({ message: "User deleted" });
   } catch (error) {
-    console.log("🚀 ~ router.delete ~ error:", error);
     res.status(500).json({ message: "Server error" });
   }
 });

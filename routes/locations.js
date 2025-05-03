@@ -74,7 +74,6 @@ router.delete("/locations/:id", authMiddleware, async (req, res) => {
     if (!location) return res.status(404).json({ message: "User not found" });
     res.status(200).json({ message: "Location deleted" });
   } catch (error) {
-    console.log("🚀 ~ router.delete ~ error:", error);
     res.status(500).json({ message: "Server error" });
   }
 });
