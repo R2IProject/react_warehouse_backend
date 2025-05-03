@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const Inventory = require("../models/inventory");
+const Location = require("../models/location");
 const { ObjectId } = require("mongodb");
 const authMiddleware = require("../middleware/auth");
 
@@ -33,7 +34,6 @@ router.get("/inventory", authMiddleware, async (req, res) => {
     ]);
     res.status(200).json(inventory);
   } catch (error) {
-    console.log("🚀 ~ router.get ~ error:", error);
     res.status(500).json({ message: "Server error" });
   }
 });
@@ -66,9 +66,12 @@ router.get("/inventory/:id", authMiddleware, async (req, res) => {
         },
       },
     ]);
+    const locations = await Location.find();
     if (!inventory)
       return res.status(404).json({ message: "Inventory not found" });
-    res.json(inventory[0] || {});
+    if (!locations)
+      return res.status(404).json({ message: "Location not found" });
+    res.json({ inventory: inventory[0] || {}, locations });
   } catch (error) {
     res.status(500).json({ message: "Server error" });
   }
@@ -120,7 +123,6 @@ router.delete("/inventory/:id", authMiddleware, async (req, res) => {
     if (!inventory) return res.status(404).json({ message: "User not found" });
     res.status(200).json({ message: "Inventory deleted" });
   } catch (error) {
-    console.log("🚀 ~ router.delete ~ error:", error);
     res.status(500).json({ message: "Server error" });
   }
 });
